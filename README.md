@@ -1,6 +1,7 @@
 # Bibliothèque
 
 Le but du projet est de créer une application de gestion de bibliothèque avec les emprunts de livres des utilisateurs.
+[Wireframes](https://invis.io/E9BIL0B7K)
 
 ## Fonctions principales
 * Recherche de base (Prend en compte titre, auteur)
