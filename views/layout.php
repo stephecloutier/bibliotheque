@@ -10,20 +10,13 @@
 <body>
     <h1>Bibliothèque</h1>
     <header>
-        <nav>
-            <ul class="navigation__list">
-                <?php
-                include 'Controller/Navigation.php';
-                $datas['navigation'] = @\Controller\Navigation::getNav($navItems, $loginNavItems, $logoutNavItems);
-                foreach($datas['navigation'] as $navItem):
-                    ?>
-                <li class="navigation__item">
-                    <a href="<?= $navItem['url']; ?>" class="navigation__link"><?= $navItem['label']; ?></a>
-                </li>
-                <?php endforeach; ?>
-            </ul>
-        </nav>
-        <?php //include 'views/parts/navigation.php'; ?>
+        <?php
+            if(!isset($_SESSION['user'])){
+                include 'parts/logoutNav.php';
+            } else {
+                include 'parts/loginNav.php';
+            }
+        ?>
     </header>
     <main>
         <?php foreach($datas['view'] as $part){
