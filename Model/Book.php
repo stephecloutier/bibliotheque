@@ -1,7 +1,24 @@
 <?php
 namespace Model;
 
-class BookCreation extends Model {
+class Book extends Model {
+
+    public function getBook($isbn)
+    {
+        $pdo = $this->connectDB();
+        if($pdo) {
+            $pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+
+            $pdoSt = $pdo->prepare('SELECT * FROM books WHERE isbn = :isbn');
+            $pdoSt->bindValue(':isbn', $isbn);
+            try {
+
+            } catch(\PDOException $e) {
+                die('Connection failed: ' . $e->getMessage());
+            }
+
+        }
+    }
     public function addBookCover($file, $filename)
     {
         $feedback = '';

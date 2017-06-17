@@ -2,13 +2,23 @@
 namespace Model;
 
 class Author extends Model {
-    public function getAuthor($authorName)
+    public function getAuthor($authorName, $authorBirth)
     {
         $pdo = $this->connectDB();
-        $pdoSt = $pdo->prepare('SELECT * FROM authors WHERE name = :authorName');
-        $pdoSt->bindValue(':authorName', $authorName);
-        $pdoSt->execute();
-        return $pdoSt->fetch();
+        if($pdo) {
+            $pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+
+            $pdoSt = $pdo->prepare('SELECT * FROM authors WHERE name LIKE :authorName AND datebirth = :datebirth');
+            $pdoSt->bindValue(':authorName', "%$authorName%");
+            $pdoSt->bindValue(':datebirth', $authorBirth);
+            try {
+                $pdoSt->execute();
+            } catch(\PDOException $e) {
+                die('Connection failed: ' . $e->getMessage());
+            }
+            return $pdoSt->fetch();
+        }
+
     }
 
     public function addAuthor($authorName, $birthDate, $photo = null, $bio = null, $deathDate = null)
@@ -30,5 +40,13 @@ class Author extends Model {
             }
             return $pdo->lastInsertId();
         }
+    }
+
+    public function checkField($field)
+    {
+        if($field === '') {
+            $field = null;
+        }
+        return $field;
     }
 }

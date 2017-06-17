@@ -7,7 +7,9 @@
 
     <label for="bookAuthor">Auteur</label>
     <select name="bookAuthor" id="bookAuthor" required="required">
-        <option value="1">Nom d'un auteur</option>
+        <?php foreach($datas['authors'] as $author): ?>
+        <option value="<?= $author['id']; ?>"><?= ucfirst($author['name']); ?></option>
+        <?php endforeach; ?>
     </select>
 
     <label for="bookImg">Image jaquette</label>
@@ -18,7 +20,9 @@
 
     <label for="bookGenre">Genre</label>
     <select name="bookGenre" id="bookGenre" required="required">
-        <option value="1">Fantastique</option>
+        <?php foreach($datas['genres'] as $genre): ?>
+            <option value="<?= $genre['id']; ?>"><?= ucfirst($genre['name']); ?></option>
+        <?php endforeach; ?>
     </select>
 
     <label for="bookISBN">ISBN</label>
@@ -32,8 +36,9 @@
 
     <label for="bookLanguage">Langue</label>
     <select name="bookLanguage" id="bookLanguage" required="required">
-        <option value="1">Français</option>
-        <option value="2">Anglais</option>
+        <?php foreach($datas['languages'] as $language): ?>
+            <option value="<?= $language['id']; ?>"><?= ucfirst($language['name']); ?></option>
+        <?php endforeach; ?>
     </select>
 
     <label for="bookSummary">Synopsis</label>

@@ -26,4 +26,52 @@ class Model {
     {
         return isset($_SESSION['user']);
     }
+
+    public function getAuthors()
+    {
+        $pdo = $this->connectDB();
+        if($pdo) {
+            $pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+            $pdoSt = $pdo->prepare('SELECT id, name FROM authors');
+            try {
+                $pdoSt->execute();
+                return $pdoSt->fetchAll();
+            } catch(\PDOException $e) {
+                die('Connection failed: ' . $e->getMessage());
+            }
+        }
+        die('Connection to db failed');
+    }
+
+    public function getGenres()
+    {
+        $pdo = $this->connectDB();
+        if($pdo) {
+            $pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+            $pdoSt = $pdo->prepare('SELECT id, name FROM genres');
+            try {
+                $pdoSt->execute();
+                return $pdoSt->fetchAll();
+            } catch(\PDOException $e) {
+                die('Connection failed: ' . $e->getMessage());
+            }
+        }
+        die('Connection to db failed');
+    }
+
+    public function getLanguages()
+    {
+        $pdo = $this->connectDB();
+        if($pdo) {
+            $pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+            $pdoSt = $pdo->prepare('SELECT id, name FROM languages');
+            try {
+                $pdoSt->execute();
+                return $pdoSt->fetchAll();
+            } catch(\PDOException $e) {
+                die('Connection failed: ' . $e->getMessage());
+            }
+        }
+        die('Connection to db failed');
+    }
 }
