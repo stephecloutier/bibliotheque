@@ -2,44 +2,44 @@
 <form action="index.php" method="post">
     <h3>Ajout d'un livre</h3>
 
-    <label for="title">Titre du livre</label>
-    <input type="text" name="bookTitle" id="title">
+    <label for="bookTitle">Titre du livre</label>
+    <input type="text" name="bookTitle" id="bookTitle" required="required">
 
-    <label for="author">Auteur</label>
-    <select name="bookAuthor" id="author">
+    <label for="bookAuthor">Auteur</label>
+    <select name="bookAuthor" id="bookAuthor" required="required">
         <option value="1">Nom d'un auteur</option>
     </select>
 
-    <label for="img">Image jaquette</label>
-    <input type="image" name="bookImg" id="img">
+    <label for="bookImg">Image jaquette</label>
+    <input type="file" name="bookImg" id="bookImg">
 
-    <label for="editor">Éditeur</label>
-    <input type="text" name="bookEditor" id="editor">
+    <label for="bookEditor">Éditeur</label>
+    <input type="text" name="bookEditor" id="bookEditor">
 
-    <label for="genre">Genre</label>
-    <select name="bookGenre" id="genre">
+    <label for="bookGenre">Genre</label>
+    <select name="bookGenre" id="bookGenre" required="required">
         <option value="1">Fantastique</option>
     </select>
 
-    <label for="isbn">ISBN</label>
-    <input type="text" name="bookISBN" id="isbn">
+    <label for="bookISBN">ISBN</label>
+    <input type="text" name="bookISBN" id="bookISBN" required="required">
 
-    <label for="pages">Nombre de pages</label>
-    <input type="number" name="bookPages" id="pages">
+    <label for="bookPages">Nombre de pages</label>
+    <input type="number" name="bookPages" id="bookPages">
 
-    <label for="date">Date de publication</label>
-    <input type="date" name="bookDate" id="date">
+    <label for="bookDate">Date de publication</label>
+    <input type="date" name="bookDate" id="bookDate">
 
-    <label for="language">Langue</label>
-    <select name="bookLanguage" id="language">
+    <label for="bookLanguage">Langue</label>
+    <select name="bookLanguage" id="bookLanguage" required="required">
         <option value="1">Français</option>
         <option value="2">Anglais</option>
     </select>
 
-    <label for="summary">Synopsis</label>
-    <textarea name="bookSummary" id="summary" cols="30" rows="10"></textarea>
+    <label for="bookSummary">Synopsis</label>
+    <textarea name="bookSummary" id="bookSummary" cols="30" rows="10"></textarea>
 
-    <input type="hidden" name="resource" value="CreateBook">
+    <input type="hidden" name="resource" value="BookCreation">
     <input type="hidden" name="action" value="addBook">
 
     <button type="submit">Ajouter le livre</button>
@@ -48,6 +48,23 @@
 <form action="index.php" method="post">
     <h3>Ajout d'un auteur</h3>
 
-    <label for="name">Nom complet de l'auteur</label>
-    <input type="text" id="name" name="authorName">
+    <label for="authorName">Nom complet de l'auteur</label>
+    <input type="text" id="authorName" name="authorName" required="required">
+
+    <label for="authorBirth">Date de naissance</label>
+    <input type="date" name="authorBirth" id="authorBirth" required="required">
+
+    <label for="authorDeath">Date de décès</label>
+    <input type="date" name="authorDeath" id="authorDeath">
+
+    <label for="authorImg">Photo</label>
+    <input type="file" name="authorImg" id="authorImg">
+
+    <label for="authorBio">Bio</label>
+    <textarea name="authorBio" id="authorBio" cols="30" rows="10"></textarea>
+
+    <input type="hidden" name="resource" value="Author">
+    <input type="hidden" name="action" value="addAuthor">
+
+    <button type="submit">Ajouter l'auteur</button>
 </form>

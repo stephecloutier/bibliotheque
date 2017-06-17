@@ -1,7 +1,7 @@
 <?php
 namespace Model;
 
-class CreateBook extends Model {
+class BookCreation extends Model {
     public function addBookCover($file, $filename)
     {
         $feedback = '';
