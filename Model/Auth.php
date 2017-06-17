@@ -1,7 +1,7 @@
 <?php
 namespace Model;
 
-class Login extends Model {
+class Auth extends Model {
     private function getUser($email)
     {
         $pdo = $this->connectDB();

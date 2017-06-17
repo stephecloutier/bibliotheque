@@ -18,13 +18,13 @@
         <li class="navigation__item">
             <a href="index.php?resource=Page&action=about" class="navigation__link">À propos</a>
         </li>
-        <?php if($_SESSION['user']['status'] === 1): ?>
+        <?php if(intval($_SESSION['user']['status']) === 1): ?>
         <li class="navigation__item">
-            <a href="index.php?resource=Page&action=getAdmin" class="navigation__link">Panneau administrateur</a>
+            <a href="index.php?resource=Page&action=getAdmin" class="navigation__link">Panneau d'administrateur</a>
         </li>
         <?php endif; ?>
         <li class="navigation__item">
-            <a href="index.php?resource=Page&action=logout" class="navigation__link">Se déconnecter</a>
+            <a href="index.php?resource=Auth&action=getLogout" class="navigation__link">Se déconnecter</a>
         </li>
     </ul>
 </nav>

@@ -7,7 +7,7 @@
         <label for="password" class="form__label">Votre mot de passe</label>
         <input id="password" name="password" type="password" class="form__input" required="required">
 
-        <input type="hidden" name="resource" value="Login">
+        <input type="hidden" name="resource" value="Auth">
         <input type="hidden" name="action" value="postLogin">
 
         <button type="submit">Se connecter</button>

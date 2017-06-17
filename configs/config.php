@@ -1,6 +1,6 @@
 <?php
 define('INI_FILE', 'configs/db.ini');
-define('LOCAL_PATH', 'homestead.app/pwcs/bibliotheque/');
+define('LOCAL_PATH', 'http://homestead.app/pwcs/bibliotheque/');
 
 $navItems = [
     'home' => ['label' => 'Accueil', 'url' => 'index.php'] ,

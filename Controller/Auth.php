@@ -1,9 +1,10 @@
 <?php
 namespace Controller;
 
-use \Model\Login as modelLogin;
-class Login {
-    public function postLogin() {
+use \Model\Auth as modelLogin;
+class Auth {
+    public function postLogin()
+    {
         if(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
             $login = new modelLogin;
             $user =  $login->connectUser($_POST['email'], $_POST['password']);
@@ -17,5 +18,19 @@ class Login {
             $datas['view'] = ['parts/login.php'];
         }
         return $datas;
+    }
+
+    public function getLogout()
+    {
+        if(ini_get('session.use_cookies')) {
+            $params = session_get_cookie_params();
+            setcookie(session_name(), '', 1,
+                $params['path'], $params['domain'],
+                $params['secure'], $params['httponly']
+            );
+        }
+        session_destroy();
+        header('Location: ' . LOCAL_PATH);
+        exit;
     }
 }

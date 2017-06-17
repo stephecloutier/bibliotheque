@@ -17,4 +17,3 @@
     $controller = new $controllerName();
 
     $datas = call_user_func([$controller, $action]);
-    var_dump($datas);

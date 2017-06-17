@@ -2,6 +2,8 @@
  $routes = [
     'default' => 'GET/Page/summary',
     'get_login' => 'GET/Page/getLogin',
-    'get_advancedSearch' => 'GET/Page/advancedSearch',
-    'post_login' => 'POST/Login/postLogin'
+    'post_login' => 'POST/Auth/postLogin',
+    'get_logout' => 'GET/Auth/getLogout',
+     'get_admin' => 'GET/Page/getAdmin',
+    'get_advancedSearch' => 'GET/Page/advancedSearch'
  ];
