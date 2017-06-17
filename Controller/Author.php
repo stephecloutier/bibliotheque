@@ -2,16 +2,18 @@
 namespace Controller;
 
 use \Model\Author as AuthorModel;
+use \Model\Model as Model;
 use \Controller\Page as Page;
 
 class Author {
     public function addAuthor() {
         $addAuthor = new AuthorModel;
         $page = new Page;
+        $model = new Model;
         if(isset($_POST['authorName']) && isset($_POST['authorBirth'])) {
-            $authorImg = $addAuthor->checkField($_POST['authorImg']);
-            $authorBio = $addAuthor->checkField($_POST['authorBio']);
-            $authorDeath = $addAuthor->checkField($_POST['authorDeath']);
+            $authorImg = $model->checkField($_POST['authorImg']);
+            $authorBio = $model->checkField($_POST['authorBio']);
+            $authorDeath = $model->checkField($_POST['authorDeath']);
 
             if(!$addAuthor->getAuthor($_POST['authorName'], $_POST['authorBirth'])) {
                 $addAuthor->addAuthor($_POST['authorName'], $_POST['authorBirth'], $authorImg, $authorBio, $authorDeath);

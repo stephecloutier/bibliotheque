@@ -44,7 +44,7 @@
     <label for="bookSummary">Synopsis</label>
     <textarea name="bookSummary" id="bookSummary" cols="30" rows="10"></textarea>
 
-    <input type="hidden" name="resource" value="BookCreation">
+    <input type="hidden" name="resource" value="Book">
     <input type="hidden" name="action" value="addBook">
 
     <button type="submit">Ajouter le livre</button>

@@ -41,12 +41,4 @@ class Author extends Model {
             return $pdo->lastInsertId();
         }
     }
-
-    public function checkField($field)
-    {
-        if($field === '') {
-            $field = null;
-        }
-        return $field;
-    }
 }

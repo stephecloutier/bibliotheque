@@ -74,4 +74,13 @@ class Model {
         }
         die('Connection to db failed');
     }
+
+
+    public function checkField($field)
+    {
+        if($field === '') {
+            $field = null;
+        }
+        return $field;
+    }
 }
