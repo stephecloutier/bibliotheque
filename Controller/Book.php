@@ -83,6 +83,7 @@ class Book extends Page {
         // Checking if the book exists, if not, adding it.
         if(!$createBook->getBook($bookIsbn)) {
             $createBook->addBook($_POST['bookTitle'], $bookImg, $bookSummary, $bookIsbn, $bookPages, $bookDate, $_POST['bookLanguage'], $_POST['bookGenre'], $bookEditor, $_POST['bookAuthor']);
+            $_SESSION['messages']['addBook']['general'] = 'Le livre a bien été ajouté à la base de données';
             header('Location: index.php?resource=Page&action=getAdmin');
         } else {
             $_SESSION['errors']['addBook']['general'] = 'Le livre existe déjà dans la base de données';

@@ -4,6 +4,9 @@
     <?php if(isset($_SESSION['errors']['addBook']['general'])): ?>
         <span class="form-error"><?= $_SESSION['errors']['addBook']['general']; ?></span>
     <?php endif; ?>
+    <?php if(isset($_SESSION['messages']['addBook']['general'])): ?>
+        <span class="form-success"><?= $_SESSION['messages']['addBook']['general']; ?></span>
+    <?php endif; ?>
 
     <label for="bookTitle">Titre du livre</label>
     <input type="text" name="bookTitle" id="bookTitle" required="required">
@@ -108,3 +111,4 @@
 </form>
 
 <?php $_SESSION['errors']['addBook'] = []; ?>
+<?php $_SESSION['messages']['addBook'] = []; ?>
