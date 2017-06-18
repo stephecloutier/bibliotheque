@@ -95,21 +95,43 @@
 
 <form action="index.php" method="post">
     <h3>Ajout d'un auteur</h3>
+    <?php if(isset($_SESSION['errors']['addAuthor']['general'])): ?>
+        <span class="form-error"><?= $_SESSION['errors']['addAuthor']['general']; ?></span>
+    <?php endif; ?>
+    <?php if(isset($_SESSION['messages']['addAuthor']['general'])):
+        $_SESSION['populate']['addAuthor'] = []; ?>
+        <span class="form-success"><?= $_SESSION['messages']['addAuthor']['general']; ?></span>
+    <?php endif; ?>
 
     <label for="authorName">Nom complet de l'auteur</label>
-    <input type="text" id="authorName" name="authorName" required="required">
+    <input type="text" id="authorName" name="authorName" required="required" value="<?php if(isset($_SESSION['populate']['addAuthor']['authorName'])) echo $_SESSION['populate']['addAuthor']['authorName']; ?>">
+    <?php if(isset($_SESSION['errors']['addAuthor']['name'])): ?>
+        <span class="form-error"><?= $_SESSION['errors']['addAuthor']['name']; ?></span>
+    <?php endif; ?>
 
     <label for="authorBirth">Date de naissance</label>
-    <input type="date" name="authorBirth" id="authorBirth" required="required">
+    <input type="date" name="authorBirth" id="authorBirth" required="required" value="<?php if(isset($_SESSION['populate']['addAuthor']['authorBirth'])) echo $_SESSION['populate']['addAuthor']['authorBirth']; ?>">
+    <?php if(isset($_SESSION['errors']['addAuthor']['birthDate'])): ?>
+        <span class="form-error"><?= $_SESSION['errors']['addAuthor']['birthDate']; ?></span>
+    <?php endif; ?>
 
     <label for="authorDeath">Date de décès</label>
-    <input type="date" name="authorDeath" id="authorDeath">
+    <input type="date" name="authorDeath" id="authorDeath" value="<?php if(isset($_SESSION['populate']['addAuthor']['authorDeath'])) echo $_SESSION['populate']['addAuthor']['authorDeath']; ?>">
+    <?php if(isset($_SESSION['errors']['addAuthor']['deathDate'])): ?>
+        <span class="form-error"><?= $_SESSION['errors']['addAuthor']['deathDate']; ?></span>
+    <?php endif; ?>
 
     <label for="authorImg">Photo</label>
     <input type="file" name="authorImg" id="authorImg">
+    <?php if(isset($_SESSION['errors']['addAuthor']['cover'])): ?>
+        <span class="form-error"><?= $_SESSION['errors']['addAuthor']['cover']; ?></span>
+    <?php endif; ?>
 
     <label for="authorBio">Bio</label>
-    <textarea name="authorBio" id="authorBio" cols="30" rows="10"></textarea>
+    <textarea name="authorBio" id="authorBio" cols="30" rows="10"><?php if(isset($_SESSION['populate']['addAuthor']['authorBio'])) echo $_SESSION['populate']['addAuthor']['authorBio']; ?></textarea>
+    <?php if(isset($_SESSION['errors']['addAuthor']['bio'])): ?>
+        <span class="form-error"><?= $_SESSION['errors']['addAuthor']['bio']; ?></span>
+    <?php endif; ?>
 
     <input type="hidden" name="resource" value="Author">
     <input type="hidden" name="action" value="addAuthor">
@@ -120,3 +142,6 @@
 <?php $_SESSION['errors']['addBook'] = []; ?>
 <?php $_SESSION['messages']['addBook'] = []; ?>
 <?php $_SESSION['populate']['addBook'] = []; ?>
+<?php $_SESSION['errors']['addAuthor'] = []; ?>
+<?php $_SESSION['messages']['addAuthor'] = []; ?>
+<?php $_SESSION['populate']['addAuthor'] = []; ?>

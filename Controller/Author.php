@@ -7,7 +7,6 @@ use \Model\Model as Model;
 class Author {
     public function addAuthor() {
         $addAuthor = new AuthorModel;
-        $page = new Page;
         $model = new Model;
 
         $_SESSION['errors']['addAuthor'] = []; // reset errors
@@ -30,7 +29,7 @@ class Author {
         if($authorBirth === '') {
             $_SESSION['errors']['addAuthor']['birth'] = 'Vous devez entrer une date de naissance pour l’auteur';
         } else {
-            if(!$model->validateDate($authorBirth) {
+            if(!$model->validateDate($authorBirth)) {
                 $_SESSION['errors']['addAuthor']['birthDate'] = 'Le format de la date n’est pas le bon. Merci de respecter un format jj-mm-aaaa';
             } else {
                 $authorBirth = explode('-', $_POST['authorBirth']);
@@ -66,7 +65,7 @@ class Author {
             $_SESSION['messages']['addAuthor']['general'] = 'L’auteur a bien été ajouté à la base de données';
             header('Location: index.php?resource=Page&action=getAdmin');
         } else {
-            $_SESSION['errors']['general'] = 'L’auteur entré existe déjà dans la base de données';
+            $_SESSION['errors']['addAuthor']['general'] = 'L’auteur entré existe déjà dans la base de données';
             header('Location: index.php?resource=Page&action=getAdmin');
         }
     }
