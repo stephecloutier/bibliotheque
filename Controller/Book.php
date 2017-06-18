@@ -10,6 +10,8 @@ class Book extends Page {
         $model = new Model;
 
         $_SESSION['errors']['addBook'] = []; // reset errors
+        $_SESSION['messages']['addBook'] = []; // reset messages
+        $_SESSION['populate']['addBook'] = $_POST; // repeupler les champs
 
         if(!isset($_POST['bookTitle']) || !isset($_POST['bookAuthor']) || !isset($_POST['bookGenre']) || !isset($_POST['bookISBN']) || !isset($_POST['bookLanguage'])) {
             $_SESSION['errors']['addBook']['general'] = 'Arrêtez de jouer avec le formulaire.';
