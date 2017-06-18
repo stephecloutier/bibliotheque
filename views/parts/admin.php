@@ -1,9 +1,15 @@
 <h2>Panneau d'administration</h2>
 <form action="index.php" method="post">
     <h3>Ajout d'un livre</h3>
+    <?php if(isset($_SESSION['errors']['addBook']['general'])): ?>
+        <span class="form-error"><?= $_SESSION['errors']['addBook']['general']; ?></span>
+    <?php endif; ?>
 
     <label for="bookTitle">Titre du livre</label>
     <input type="text" name="bookTitle" id="bookTitle" required="required">
+    <?php if(isset($_SESSION['errors']['addBook']['title'])): ?>
+        <span class="form-error"><?= $_SESSION['errors']['addBook']['title']; ?></span>
+    <?php endif; ?>
 
     <label for="bookAuthor">Auteur</label>
     <select name="bookAuthor" id="bookAuthor" required="required">
@@ -11,12 +17,21 @@
         <option value="<?= $author['id']; ?>"><?= ucfirst($author['name']); ?></option>
         <?php endforeach; ?>
     </select>
+    <?php if(isset($_SESSION['errors']['addBook']['author'])): ?>
+        <span class="form-error"><?= $_SESSION['errors']['addBook']['author']; ?></span>
+    <?php endif; ?>
 
     <label for="bookImg">Image jaquette</label>
     <input type="file" name="bookImg" id="bookImg">
+    <?php if(isset($_SESSION['errors']['addBook']['cover'])): ?>
+        <span class="form-error"><?= $_SESSION['errors']['addBook']['cover']; ?></span>
+    <?php endif; ?>
 
     <label for="bookEditor">Éditeur</label>
     <input type="text" name="bookEditor" id="bookEditor">
+    <?php if(isset($_SESSION['errors']['addBook']['editor'])): ?>
+        <span class="form-error"><?= $_SESSION['errors']['addBook']['editor']; ?></span>
+    <?php endif; ?>
 
     <label for="bookGenre">Genre</label>
     <select name="bookGenre" id="bookGenre" required="required">
@@ -24,15 +39,27 @@
             <option value="<?= $genre['id']; ?>"><?= ucfirst($genre['name']); ?></option>
         <?php endforeach; ?>
     </select>
+    <?php if(isset($_SESSION['errors']['addBook']['genre'])): ?>
+        <span class="form-error"><?= $_SESSION['errors']['addBook']['genre']; ?></span>
+    <?php endif; ?>
 
     <label for="bookISBN">ISBN</label>
     <input type="text" name="bookISBN" id="bookISBN" required="required">
+    <?php if(isset($_SESSION['errors']['addBook']['isbn'])): ?>
+        <span class="form-error"><?= $_SESSION['errors']['addBook']['isbn']; ?></span>
+    <?php endif; ?>
 
     <label for="bookPages">Nombre de pages</label>
     <input type="number" name="bookPages" id="bookPages">
+    <?php if(isset($_SESSION['errors']['addBook']['pages'])): ?>
+        <span class="form-error"><?= $_SESSION['errors']['addBook']['page']; ?></span>
+    <?php endif; ?>
 
-    <label for="bookDate">Date de publication</label>
+    <label for="bookDate">Date de publication (jj-mm-aaaa)</label>
     <input type="date" name="bookDate" id="bookDate">
+    <?php if(isset($_SESSION['errors']['addBook']['date'])): ?>
+        <span class="form-error"><?= $_SESSION['errors']['addBook']['date']; ?></span>
+    <?php endif; ?>
 
     <label for="bookLanguage">Langue</label>
     <select name="bookLanguage" id="bookLanguage" required="required">
@@ -40,9 +67,15 @@
             <option value="<?= $language['id']; ?>"><?= ucfirst($language['name']); ?></option>
         <?php endforeach; ?>
     </select>
+    <?php if(isset($_SESSION['errors']['addBook']['language'])): ?>
+        <span class="form-error"><?= $_SESSION['errors']['addBook']['language']; ?></span>
+    <?php endif; ?>
 
     <label for="bookSummary">Synopsis</label>
     <textarea name="bookSummary" id="bookSummary" cols="30" rows="10"></textarea>
+    <?php if(isset($_SESSION['errors']['addBook']['summary'])): ?>
+        <span class="form-error"><?= $_SESSION['errors']['addBook']['summary']; ?></span>
+    <?php endif; ?>
 
     <input type="hidden" name="resource" value="Book">
     <input type="hidden" name="action" value="addBook">
@@ -73,3 +106,5 @@
 
     <button type="submit">Ajouter l'auteur</button>
 </form>
+
+<?php $_SESSION['errors']['addBook'] = []; ?>

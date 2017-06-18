@@ -38,7 +38,6 @@ class Book extends Page {
         $bookIsbn = $createBook->formatISBN($_POST['bookISBN']);
         if($createBook->checkISBN($bookIsbn) === 0) {
             $_SESSION['errors']['addBook']['isbn'] = 'Le format de l’ISBN fourni n’est pas bon';
-            return ['view' => ['parts/admin.php']];
         }
 
         // Language control
@@ -53,16 +52,20 @@ class Book extends Page {
         $bookSummary = $model->checkField($_POST['bookSummary']);
 
         // Date control
-        if(!$model->validateDate($bookDate)) {
-            $_SESSION['errors']['addBook']['date'] = 'Le format de la date n’est pas le bon. Merci de respecter un format jj-mm-aaaa';
-        } else {
-            $bookDate = explode('-', $bookDate);
-            $bookDate = implode('-', [$bookDate[2], $bookDate[1], $bookDate[0]]);
+        if(!is_null($bookDate)) {
+            if(!$model->validateDate($bookDate)) {
+                $_SESSION['errors']['addBook']['date'] = 'Le format de la date n’est pas le bon. Merci de respecter un format jj-mm-aaaa';
+            } else {
+                $bookDate = explode('-', $bookDate);
+                $bookDate = implode('-', [$bookDate[2], $bookDate[1], $bookDate[0]]);
+            }
         }
 
         // Pages control
-        if(!ctype_digit($bookPages)) {
-            $_SESSION['errors']['addBook']['pages'] = 'Vous devez entrer un nombre positif';
+        if(!is_null($bookPages)) {
+            if(!ctype_digit($bookPages)) {
+                $_SESSION['errors']['addBook']['pages'] = 'Vous devez entrer un nombre positif';
+            }
         }
 
         // Cover control
@@ -72,20 +75,18 @@ class Book extends Page {
             $bookImg = null; // à changer
         }
 
+        // si erreurs, redirection pour leur affichage
         if(count($_SESSION['errors']['addBook'])) {
             header('Location: index.php?resource=Page&action=getAdmin');
         }
 
-
-        // ici stopper si erreurs puis les afficher.
-
         // Checking if the book exists, if not, adding it.
         if(!$createBook->getBook($bookIsbn)) {
             $createBook->addBook($_POST['bookTitle'], $bookImg, $bookSummary, $bookIsbn, $bookPages, $bookDate, $_POST['bookLanguage'], $_POST['bookGenre'], $bookEditor, $_POST['bookAuthor']);
-            return $this->getAdmin();
+            header('Location: index.php?resource=Page&action=getAdmin');
         } else {
-            die('Le livre existe déjà dans la base de données');
             $_SESSION['errors']['addBook']['general'] = 'Le livre existe déjà dans la base de données';
+            header('Location: index.php?resource=Page&action=getAdmin');
         }
         //$createBook->addBookCover($_FILES['bookImg'], $_FILES['bookTitle']);
     }
