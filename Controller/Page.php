@@ -20,7 +20,7 @@ class Page {
     public function getAdmin() {
         if(!isset($_SESSION['user'])) {
             header('Location: '. LOCAL_PATH);
-            // ajouter une erreur
+            $_SESSION['errors']['user'] = 'Vous devez être connecté pour accèder à cette page';
             exit;
         } else {
             if(intval($_SESSION['user']['status']) === 1) {
@@ -35,7 +35,6 @@ class Page {
                 $datas['view'] = ['parts/basicSearch.php', 'parts/news.php', 'parts/suggestions.php'];
             }
         }
-
         return $datas;
     }
 
