@@ -16,12 +16,10 @@ class Author {
         }
         if($_POST['authorName'] === '') {
             $_SESSION['errors']['addAuthor']['name'] = 'Vous devez entrer un nom pour l’auteur';
-            return ['view' => ['parts/admin.php']];
         }
 
         if($_POST['authorBirth'] === '') {
             $_SESSION['errors']['addAuthor']['birth'] = 'Vous devez entrer une date de naissance pour l’auteur';
-            return ['view' => ['parts/admin.php']];
         }
 
         $authorImg = $model->checkField($_POST['authorImg']);
@@ -34,7 +32,6 @@ class Author {
         } else {
             die('Cet auteur existe deja dans la base de données');
             $_SESSION['errors']['general'] = 'L’auteur entré existe déjà dans la base de données';
-            return ['view' => ['parts/admin.php']];
         }
     }
 }
