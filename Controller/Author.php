@@ -10,21 +10,31 @@ class Author {
         $addAuthor = new AuthorModel;
         $page = new Page;
         $model = new Model;
-        if(isset($_POST['authorName']) && isset($_POST['authorBirth'])) {
-            $authorImg = $model->checkField($_POST['authorImg']);
-            $authorBio = $model->checkField($_POST['authorBio']);
-            $authorDeath = $model->checkField($_POST['authorDeath']);
+        if(!isset($_POST['authorName']) || !isset($_POST['authorBirth'])) {
+            $_SESSION['errors']['addAuthor']['general'] = 'Arrêtez de jouer avec le formulaire.';
+            return ['view' => ['parts/admin.php']];
+        }
+        if($_POST['authorName'] === '') {
+            $_SESSION['errors']['addAuthor']['name'] = 'Vous devez entrer un nom pour l’auteur';
+            return ['view' => ['parts/admin.php']];
+        }
 
-            if(!$addAuthor->getAuthor($_POST['authorName'], $_POST['authorBirth'])) {
-                $addAuthor->addAuthor($_POST['authorName'], $_POST['authorBirth'], $authorImg, $authorBio, $authorDeath);
-                return $page->getAdmin();
-            } else {
-                die('Cet auteur existe deja dans la base de données');
-                return['view' => ['parts/admin.php'], 'errors' => ['L’auteur entré existe déjà dans la base de donnée']];
-            }
+        if($_POST['authorBirth'] === '') {
+            $_SESSION['errors']['addAuthor']['birth'] = 'Vous devez entrer une date de naissance pour l’auteur';
+            return ['view' => ['parts/admin.php']];
+        }
+
+        $authorImg = $model->checkField($_POST['authorImg']);
+        $authorBio = $model->checkField($_POST['authorBio']);
+        $authorDeath = $model->checkField($_POST['authorDeath']);
+
+        if(!$addAuthor->getAuthor($_POST['authorName'], $_POST['authorBirth'])) {
+            $addAuthor->addAuthor($_POST['authorName'], $_POST['authorBirth'], $authorImg, $authorBio, $authorDeath);
+            return $page->getAdmin();
         } else {
-            die('Vous devez entrer au minimum le nom de l’auteur et sa date de naissance');
-            return['view' => ['parts/admin.php'], 'errors' => ['Vous devez entrer au minimum le nom de l’auteur et sa date de naissance']];
+            die('Cet auteur existe deja dans la base de données');
+            $_SESSION['errors']['general'] = 'L’auteur entré existe déjà dans la base de données';
+            return ['view' => ['parts/admin.php']];
         }
     }
 }
