@@ -9,12 +9,12 @@ class Auth {
             $login = new modelLogin;
             $user =  $login->connectUser($_POST['email'], $_POST['password']);
             if(isset($user['error'])) {
-                $datas['error'] = $user['error'];
+                $_SESSION['errors']['userConnection'] = $user['error'];
             }
             $_SESSION['user'] = $user;
             $datas['view'] = ['parts/basicSearch.php', 'parts/news.php', 'parts/suggestions.php'];
         } else {
-            $datas['error'] = ['email' => 'Vous n’avez pas entré une adresse email valide'];
+            $_SESSION['errors']['email'] = 'Vous n’avez pas entré une adresse email valide';
             $datas['view'] = ['parts/login.php'];
         }
         return $datas;
