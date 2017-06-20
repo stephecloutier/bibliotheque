@@ -5,11 +5,19 @@ class Auth extends Model {
     private function getUser($email)
     {
         $pdo = $this->connectDB();
-        $pdoSt = $pdo->prepare('SELECT * FROM users WHERE email = :email');
-        $pdoSt->bindValue(':email', $email);
-        //$pdoSt->bindValue(':password', $password);
-        $pdoSt->execute();
-        return $pdoSt->fetch();
+        if($pdo) {
+            $pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+            $pdoSt = $pdo->prepare('SELECT * FROM users WHERE email = :email');
+            $pdoSt->bindValue(':email', $email);
+            try {
+                $pdoSt->execute();
+                return $pdoSt->fetch();
+            } catch(\PDOException $e) {
+                $_SESSION['errors']['BDD'] = 'Il y a eu une erreur lors de la requête à la base de données';
+            }
+        } else {
+            $_SESSION['errors']['BDD'] = 'Il y a eu une erreur lors de la connexion à la base de données';
+        }
     }
     private function checkEmail($user)
     {

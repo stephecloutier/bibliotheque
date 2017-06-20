@@ -4,9 +4,9 @@
     <?php if(isset($_SESSION['errors']['addBook']['general'])): ?>
         <span class="form-error"><?= $_SESSION['errors']['addBook']['general']; ?></span>
     <?php endif; ?>
-    <?php if(isset($_SESSION['messages']['addBook']['general'])):
-        $_SESSION['populate']['addBook'] = []; ?>
-        <span class="form-success"><?= $_SESSION['messages']['addBook']['general']; ?></span>
+    <?php if(isset($_SESSION['messages']['addBook']['general'])): ?>
+        <span class="form-success"><?= str_replace(':title', $_SESSION['populate']['addBook']['bookTitle'], $_SESSION['messages']['addBook']['general']); ?></span>
+        <?php $_SESSION['populate']['addBook'] = []; ?>
     <?php endif; ?>
 
     <label for="bookTitle">Titre du livre</label>
@@ -31,12 +31,6 @@
     <input type="file" name="bookImg" id="bookImg">
     <?php if(isset($_SESSION['errors']['addBook']['cover'])): ?>
         <span class="form-error"><?= $_SESSION['errors']['addBook']['cover']; ?></span>
-    <?php endif; ?>
-
-    <label for="bookEditor">Éditeur</label>
-    <input type="text" name="bookEditor" id="bookEditor" value="<?php if(isset($_SESSION['populate']['addBook']['bookEditor'])) echo $_SESSION['populate']['addBook']['bookEditor']; ?>">
-    <?php if(isset($_SESSION['errors']['addBook']['editor'])): ?>
-        <span class="form-error"><?= $_SESSION['errors']['addBook']['editor']; ?></span>
     <?php endif; ?>
 
     <label for="bookGenre">Genre</label>
@@ -64,7 +58,7 @@
     <?php endif; ?>
 
     <label for="bookDate">Date de publication (jj-mm-aaaa)</label>
-    <input type="date" name="bookDate" id="bookDate" value="<?php if(isset($_SESSION['populate']['addBook']['bookDate'])) echo $_SESSION['populate']['addBook']['bookDate']; ?>">
+    <input type="text" name="bookDate" id="bookDate" value="<?php if(isset($_SESSION['populate']['addBook']['bookDate'])) echo $_SESSION['populate']['addBook']['bookDate']; ?>">
     <?php if(isset($_SESSION['errors']['addBook']['date'])): ?>
         <span class="form-error"><?= $_SESSION['errors']['addBook']['date']; ?></span>
     <?php endif; ?>
@@ -98,9 +92,9 @@
     <?php if(isset($_SESSION['errors']['addAuthor']['general'])): ?>
         <span class="form-error"><?= $_SESSION['errors']['addAuthor']['general']; ?></span>
     <?php endif; ?>
-    <?php if(isset($_SESSION['messages']['addAuthor']['general'])):
-        $_SESSION['populate']['addAuthor'] = []; ?>
-        <span class="form-success"><?= $_SESSION['messages']['addAuthor']['general']; ?></span>
+    <?php if(isset($_SESSION['messages']['addAuthor']['general'])): ?>
+        <span class="form-success"><?= str_replace(':name', $_SESSION['populate']['addAuthor']['authorName'], $_SESSION['messages']['addAuthor']['general']); ?></span>
+        <?php $_SESSION['populate']['addAuthor'] = []; ?>
     <?php endif; ?>
 
     <label for="authorName">Nom complet de l'auteur</label>
@@ -110,13 +104,13 @@
     <?php endif; ?>
 
     <label for="authorBirth">Date de naissance</label>
-    <input type="date" name="authorBirth" id="authorBirth" required="required" value="<?php if(isset($_SESSION['populate']['addAuthor']['authorBirth'])) echo $_SESSION['populate']['addAuthor']['authorBirth']; ?>">
+    <input type="text" name="authorBirth" id="authorBirth" required="required" value="<?php if(isset($_SESSION['populate']['addAuthor']['authorBirth'])) echo $_SESSION['populate']['addAuthor']['authorBirth']; ?>">
     <?php if(isset($_SESSION['errors']['addAuthor']['birthDate'])): ?>
         <span class="form-error"><?= $_SESSION['errors']['addAuthor']['birthDate']; ?></span>
     <?php endif; ?>
 
     <label for="authorDeath">Date de décès</label>
-    <input type="date" name="authorDeath" id="authorDeath" value="<?php if(isset($_SESSION['populate']['addAuthor']['authorDeath'])) echo $_SESSION['populate']['addAuthor']['authorDeath']; ?>">
+    <input type="text" name="authorDeath" id="authorDeath" value="<?php if(isset($_SESSION['populate']['addAuthor']['authorDeath'])) echo $_SESSION['populate']['addAuthor']['authorDeath']; ?>">
     <?php if(isset($_SESSION['errors']['addAuthor']['deathDate'])): ?>
         <span class="form-error"><?= $_SESSION['errors']['addAuthor']['deathDate']; ?></span>
     <?php endif; ?>

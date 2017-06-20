@@ -5,15 +5,22 @@ use \Model\Book as BookModel;
 use \Model\Model as Model;
 
 class Book extends Page {
+    public function search()
+    {
+        $bookModel = new BookModel;
+        $_SESSION['bookResults'] = $bookModel->getResults($_GET['bookTitle']);
+        return ['view' => ['parts/bookResults.php']];
+    }
+
     public function addBook() {
-        $createBook = new BookModel;
+        $bookModel = new BookModel;
         $model = new Model;
 
         $_SESSION['errors']['addBook'] = []; // reset errors
         $_SESSION['messages']['addBook'] = []; // reset messages
         $_SESSION['populate']['addBook'] = $_POST; // repeupler les champs
 
-        if(!isset($_POST['bookTitle']) || !isset($_POST['bookAuthor']) || !isset($_POST['bookGenre']) || !isset($_POST['bookISBN']) || !isset($_POST['bookLanguage'])) {
+        if(!isset($_POST['bookTitle']) || !isset($_POST['bookAuthor']) || !isset($_POST['bookGenre']) || !isset($_POST['bookISBN']) || !isset($_POST['bookLanguage']) || !isset($_POST['bookPages']) || !isset($_POST['bookDate']) || !isset($_POST['bookSummary'])) {
             $_SESSION['errors']['addBook']['general'] = 'Arrêtez de jouer avec le formulaire.';
             header('Location: index.php?resource=Page&action=getAdmin');
         }
@@ -22,28 +29,28 @@ class Book extends Page {
         if($_POST['bookTitle'] === '') {
             $_SESSION['errors']['addBook']['title'] = 'Vous devez obligatoirement entrer un titre pour le livre';
         }
-        if(!$createBook->checkInfoLength($_POST['bookTitle'])) {
+        if(!$bookModel->checkInfoLength($_POST['bookTitle'])) {
             $_SESSION['errors']['addBook']['title'] = 'Le titre du livre que vous avez entré est trop long';
         }
 
         // Author control
-        if(!$createBook->checkAuthor($_POST['bookAuthor'])) {
+        if(!$bookModel->checkAuthor($_POST['bookAuthor'])) {
             $_SESSION['errors']['addBook']['author'] = 'L’auteur que vous avez sélectionné n’est pas dans la base de données';
         }
 
         // Genre control
-        if(!$createBook->checkGenre($_POST['bookGenre'])) {
+        if(!$bookModel->checkGenre($_POST['bookGenre'])) {
             $_SESSION['errors']['addBook']['genre'] = 'Le genre que vous avez sélectionné n’est pas dans la base de données';
         }
 
         // ISBN control
-        $bookIsbn = $createBook->formatISBN($_POST['bookISBN']);
-        if($createBook->checkISBN($bookIsbn) === 0) {
+        $bookIsbn = $bookModel->formatISBN($_POST['bookISBN']);
+        if($bookModel->checkISBN($bookIsbn) === 0) {
             $_SESSION['errors']['addBook']['isbn'] = 'Le format de l’ISBN fourni n’est pas bon';
         }
 
         // Language control
-        if(!$createBook->checkLanguage($_POST['bookLanguage'])) {
+        if(!$bookModel->checkLanguage($_POST['bookLanguage'])) {
             $_SESSION['errors']['addBook']['language'] = 'La langue que vous avez sélectionné n’est pas dans la base de données';
         }
 
@@ -83,9 +90,9 @@ class Book extends Page {
         }
 
         // Checking if the book exists, if not, adding it.
-        if(!$createBook->getBook($bookIsbn)) {
-            $createBook->addBook($_POST['bookTitle'], $bookImg, $bookSummary, $bookIsbn, $bookPages, $bookDate, $_POST['bookLanguage'], $_POST['bookGenre'], $bookEditor, $_POST['bookAuthor']);
-            $_SESSION['messages']['addBook']['general'] = 'Le livre a bien été ajouté à la base de données';
+        if(!$bookModel->getBook($bookIsbn)) {
+            $bookModel->addBook($_POST['bookTitle'], $bookImg, $bookSummary, $bookIsbn, $bookPages, $bookDate, $_POST['bookLanguage'], $_POST['bookGenre'], $_POST['bookAuthor']);
+            $_SESSION['messages']['addBook']['general'] = 'Le livre :title a bien été ajouté à la base de données';
             header('Location: index.php?resource=Page&action=getAdmin');
         } else {
             $_SESSION['errors']['addBook']['general'] = 'Le livre existe déjà dans la base de données';

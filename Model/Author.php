@@ -15,6 +15,7 @@ class Author extends Model {
                 $pdoSt->execute();
             } catch(\PDOException $e) {
                 die('Connection failed: ' . $e->getMessage());
+                $_SESSION['errors']['BDD'] = 'Il y a eu une erreur lors de la connexion à la base de données';
             }
             return $pdoSt->fetch();
         }
@@ -37,6 +38,7 @@ class Author extends Model {
                 $pdoSt->execute();
             } catch(\PDOException $e) {
                 die('Connection failed: ' . $e->getMessage());
+                $_SESSION['errors']['BDD'] = 'Il y a eu une erreur lors de la connexion à la base de données';
             }
             return $pdo->lastInsertId();
         }

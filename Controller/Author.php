@@ -62,7 +62,7 @@ class Author {
 
         if(!$addAuthor->getAuthor($_POST['authorName'], $authorBirth)) {
             $addAuthor->addAuthor($_POST['authorName'], $authorBirth, $authorImg, $authorBio, $authorDeath);
-            $_SESSION['messages']['addAuthor']['general'] = 'L’auteur a bien été ajouté à la base de données';
+            $_SESSION['messages']['addAuthor']['general'] = 'L’auteur :name a bien été ajouté à la base de données';
             header('Location: index.php?resource=Page&action=getAdmin');
         } else {
             $_SESSION['errors']['addAuthor']['general'] = 'L’auteur entré existe déjà dans la base de données';

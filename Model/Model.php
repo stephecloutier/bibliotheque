@@ -38,9 +38,11 @@ class Model {
                 return $pdoSt->fetchAll();
             } catch(\PDOException $e) {
                 die('Connection failed: ' . $e->getMessage());
+                $_SESSION['errors']['BDD'] = 'Il y a eu une erreur lors de la connexion à la base de données';
             }
         }
         die('Connection to db failed');
+        $_SESSION['errors']['BDD'] = 'Il y a eu une erreur lors de la connexion à la base de données';
     }
 
     public function getGenres()
@@ -57,6 +59,7 @@ class Model {
             }
         }
         die('Connection to db failed');
+        $_SESSION['errors']['BDD'] = 'Il y a eu une erreur lors de la connexion à la base de données';
     }
 
     public function getLanguages()
@@ -70,9 +73,11 @@ class Model {
                 return $pdoSt->fetchAll();
             } catch(\PDOException $e) {
                 die('Connection failed: ' . $e->getMessage());
+                $_SESSION['errors']['BDD'] = 'Il y a eu une erreur lors de la connexion à la base de données';
             }
         }
         die('Connection to db failed');
+        $_SESSION['errors']['BDD'] = 'Il y a eu une erreur lors de la connexion à la base de données';
     }
 
 
@@ -82,5 +87,11 @@ class Model {
             $field = null;
         }
         return $field;
+    }
+
+    public function validateDate($date,  $format = 'd-m-Y')
+    {
+        $d = \DateTime::createFromFormat($format, $date);
+        return $d && $d->format($format) == $date;
     }
 }
