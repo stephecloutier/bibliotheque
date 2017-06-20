@@ -15,7 +15,7 @@
             <option value="<?= $genre['id']; ?>"><?= ucfirst($genre['name']); ?></option>
         <?php endforeach; ?>
     </select>
-    
+
     <label for="language">Langue</label>
     <select name="bookLanguage" id="language">
         <option selected="selected" value="">Ne pas rechercher par langue</option>
