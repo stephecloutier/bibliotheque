@@ -1,4 +1,4 @@
-<div class="single-book">
+<div class="update-book">
     <?php $book = $datas['book']; ?>
 
     <form action="index.php" method="post">
