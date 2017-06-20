@@ -1,6 +1,6 @@
 <section>
-    <h2>Connexion</h2>
     <form action="index.php" method="post">
+        <h2>Connexion</h2>
         <label for="email" class="form__label">Votre email</label>
         <input id="email" name="email" type="email" class="form__input" placeholder="jeanvaljean@mail.com" required="required">
 

@@ -9,7 +9,7 @@
     <title>Bibliothèque</title>
 </head>
 <body>
-    <h1>Bibliothèque</h1>
+    <h1><a href="index.php">Bibliothèque</a></h1>
     <header>
         <?php
             if(!isset($_SESSION['user'])){

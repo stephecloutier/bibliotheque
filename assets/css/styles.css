@@ -132,15 +132,22 @@ form {
     align-items: stretch;
     padding: 2rem;
     border: 3px solid black;
+    max-width: 800px;
+    margin-bottom: 1rem;
 }
 
-form h2 {
+form h2, h2 {
     font-size: 1.2rem;
     font-weight: 600;
 }
 
+form h3 {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
 .search {
-    width: 500px;
+    /*width: 500px;*/
     min-height: 150px;
     justify-content: space-between;
 

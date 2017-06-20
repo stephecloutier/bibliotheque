@@ -1,5 +1,5 @@
 <form class="search" action="index.php" method="GET">
-    <h2>Rechercher un livre</h2>
+    <h2>Recherche avancée</h2>
 
     <label for="title">Titre</label>
     <input type="text" name="bookTitle" id="title">
