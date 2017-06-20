@@ -12,6 +12,13 @@ class Book extends Page {
         return ['view' => ['parts/bookResults.php']];
     }
 
+    public function advancedSearch()
+    {
+        $bookModel = new BookModel;
+        $_SESSION['bookResults'] = $bookModel->getResults($_GET['bookTitle'], $_GET['bookAuthor'], $_GET['bookGenre'], $_GET['bookLanguage']);
+        return ['view' => ['parts/bookResults.php']];
+    }
+
     public function addBook() {
         $bookModel = new BookModel;
         $model = new Model;

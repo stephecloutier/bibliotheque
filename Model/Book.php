@@ -142,7 +142,7 @@ class Book extends Model {
         // return url
     }
 
-    public function getResults($title, $author = null, $genre = null, $language = null)
+    public function getResults($title = null, $author = null, $genre = null, $language = null)
     {
         $bindValues = [];
         $requestParts = ['books.title LIKE :title', 'authors.name LIKE :author', 'genres.id = :genre_id', 'languages.id = :language_id'];

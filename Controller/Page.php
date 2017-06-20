@@ -39,7 +39,10 @@ class Page {
     }
 
     public function advancedSearch() {
+        $model = new Model;
         $datas['view'] = ['parts/advancedSearch.php'];
+        $datas['genres'] = $model->getGenres();
+        $datas['languages'] = $model->getLanguages();
         return $datas;
     }
 }

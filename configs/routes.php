@@ -8,5 +8,6 @@
     'post_author' => 'POST/Author/addAuthor',
     'post_book' => 'POST/Book/addBook',
     'get_book' => 'GET/Book/search',
+    'get_book_advanced' => 'GET/Book/advancedSearch',
     'get_advancedSearch' => 'GET/Page/advancedSearch'
  ];
