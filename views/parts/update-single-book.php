@@ -1,9 +1,6 @@
 <div class="single-book">
     <?php $book = $datas['book']; ?>
 
-    <!-- conditionnels
-    <img src="" alt="Couverture de <?= $book['title']; ?>">
-    -->
     <form action="index.php" method="post">
         <h2>Modifier le livre <em><?= $book['title']; ?></em></h2>
         <?php if(isset($_SESSION['errors']['updateBook']['general'])): ?>

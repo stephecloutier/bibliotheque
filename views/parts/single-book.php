@@ -4,6 +4,13 @@
     <h2><?= $book['title']; ?></h2>
     <?php if(isset($_SESSION['user']) && intval($_SESSION['user']['status']) === 1): ?>
         <a class="modify__link" href="index.php?bookId=<?= $book['bookId']; ?>&resource=Page&action=bookUpdate">Modifier le livre</a>
+
+        <form class="form_nostyle" action="index.php" method="post">
+            <input type="hidden" name="resource" value="Book">
+            <input type="hidden" name="action" value="deleteBook">
+            <input type="hidden" name="bookId" value="<?= $book['bookId']; ?>">
+            <button type="submit" class="delete__link">Supprimer le livre</button>
+        </form>
     <?php endif; ?>
 
     <dl>

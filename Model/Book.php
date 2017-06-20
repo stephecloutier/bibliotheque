@@ -253,4 +253,29 @@ class Book extends Model {
             die('Erreur de connexion à la base de données');
         }
     }
+
+    public function delete($book_id)
+    {
+        $pdo = $this->connectDB();
+        if($pdo) {
+            $pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+            $request = 'DELETE FROM author_book WHERE book_id = :book_id';
+            $pdoSt = $pdo->prepare($request);
+            try {
+                $pdoSt->execute([':book_id' => $book_id]);
+            } catch(\PDOException $e) {
+                die('Connection error: ' . $e->getMessage());
+            }
+
+            $request = 'DELETE FROM books WHERE id = :book_id';
+            $pdoSt = $pdo->prepare($request);
+            try {
+                $pdoSt->execute([':book_id' => $book_id]);
+            } catch(\PDOException $e) {
+                die('Connection error: ' . $e->getMessage());
+            }
+
+
+        }
+    }
 }

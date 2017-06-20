@@ -12,5 +12,6 @@
     'get_single_book' => 'GET/Book/showBook',
     'get_book_update' => 'GET/Page/bookUpdate',
     'post_book_update' => 'POST/Book/updateBook',
-    'get_advancedSearch' => 'GET/Page/advancedSearch'
+    'get_advancedSearch' => 'GET/Page/advancedSearch',
+    'post_book_delete' => 'POST/Book/deleteBook'
  ];

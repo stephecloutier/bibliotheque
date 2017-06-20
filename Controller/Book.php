@@ -184,4 +184,14 @@ class Book extends Page {
             exit;
         }
     }
+
+    public function deleteBook()
+    {
+        $bookModel = new BookModel;
+        if(isset($_SESSION['user']) && $_SESSION['user']['status'] == 1) {
+            $bookModel->delete($_POST['bookId']);
+        }
+        header('Location: index.php');
+        exit;
+    }
 }
