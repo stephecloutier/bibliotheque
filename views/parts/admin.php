@@ -29,12 +29,6 @@
             <span class="form-error"><?= $_SESSION['errors']['addBook']['author']; ?></span>
         <?php endif; ?>
 
-        <label for="bookImg">Image jaquette</label>
-        <input type="file" name="bookImg" id="bookImg">
-        <?php if(isset($_SESSION['errors']['addBook']['cover'])): ?>
-            <span class="form-error"><?= $_SESSION['errors']['addBook']['cover']; ?></span>
-        <?php endif; ?>
-
         <label for="bookGenre">Genre *</label>
         <select name="bookGenre" id="bookGenre" required="required">
             <?php foreach($datas['genres'] as $genre): ?>
@@ -115,12 +109,6 @@
         <input type="text" name="authorDeath" id="authorDeath" value="<?php if(isset($_SESSION['populate']['addAuthor']['authorDeath'])) echo $_SESSION['populate']['addAuthor']['authorDeath']; ?>">
         <?php if(isset($_SESSION['errors']['addAuthor']['deathDate'])): ?>
             <span class="form-error"><?= $_SESSION['errors']['addAuthor']['deathDate']; ?></span>
-        <?php endif; ?>
-
-        <label for="authorImg">Photo</label>
-        <input type="file" name="authorImg" id="authorImg">
-        <?php if(isset($_SESSION['errors']['addAuthor']['cover'])): ?>
-            <span class="form-error"><?= $_SESSION['errors']['addAuthor']['cover']; ?></span>
         <?php endif; ?>
 
         <label for="authorBio">Bio</label>

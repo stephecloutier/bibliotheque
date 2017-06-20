@@ -1,6 +1,7 @@
 <?php
 namespace Controller;
 use \Model\Model as Model;
+use \Model\Book as BookModel;
 
 class Page {
     public function summary() {
@@ -44,5 +45,24 @@ class Page {
         $datas['genres'] = $model->getGenres();
         $datas['languages'] = $model->getLanguages();
         return $datas;
+    }
+
+    public function bookUpdate()
+    {
+        $bookModel = new BookModel;
+        $model = new Model;
+
+        $datas['book'] = $bookModel->getSingleBook($_GET['bookId']);
+        $datas['authors'] = $model->getAuthors();
+        $datas['genres'] = $model->getGenres();
+        $datas['languages'] = $model->getLanguages();
+
+        if(isset($_SESSION['user']) && intval($_SESSION['user']['status']) === 1) {
+            $datas['view'] = ['parts/update-single-book.php'];
+            return $datas;
+        } else {
+            $datas['view'] = ['parts/single-book.php'];
+            return $datas;
+        }
     }
 }

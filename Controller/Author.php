@@ -17,6 +17,7 @@ class Author {
         if(!isset($_POST['authorName']) || !isset($_POST['authorBirth'])) {
             $_SESSION['errors']['addAuthor']['general'] = 'Arrêtez de jouer avec le formulaire.';
             header('Location: index.php?resource=Page&action=getAdmin');
+            exit;
         }
 
         // Check name
@@ -58,15 +59,18 @@ class Author {
         // si erreurs, redirection pour leur affichage
         if(count($_SESSION['errors']['addAuthor'])) {
             header('Location: index.php?resource=Page&action=getAdmin');
+            exit;
         }
 
         if(!$addAuthor->getAuthor($_POST['authorName'], $authorBirth)) {
             $addAuthor->addAuthor($_POST['authorName'], $authorBirth, $authorImg, $authorBio, $authorDeath);
             $_SESSION['messages']['addAuthor']['general'] = 'L’auteur :name a bien été ajouté à la base de données';
             header('Location: index.php?resource=Page&action=getAdmin');
+            exit;
         } else {
             $_SESSION['errors']['addAuthor']['general'] = 'L’auteur entré existe déjà dans la base de données';
             header('Location: index.php?resource=Page&action=getAdmin');
+            exit;
         }
     }
 }

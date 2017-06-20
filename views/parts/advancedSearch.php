@@ -25,7 +25,7 @@
     </select>
 
     <input type="hidden" name="resource" value="Book">
-    <input type="hidden" name="action" value="advancedSearch">
+    <input type="hidden" name="action" value="getAdvancedSearch">
 
     <button type="submit">Rechercher</button>
 </form>

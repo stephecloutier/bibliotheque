@@ -1,37 +1,53 @@
 <div class="single-book">
-    <h2>Titre du livre</h2>
-    <!-- conditionnels -->
-    <img src="" alt="">
-    <!-- / -->
+    <?php $book = $datas['book']; ?>
+
+    <h2><?= $book['title']; ?></h2>
+    <?php if(isset($_SESSION['user']) && intval($_SESSION['user']['status']) === 1): ?>
+        <a href="index.php?bookId=<?= $book['bookId']; ?>&resource=Page&action=bookUpdate">Modifier le livre</a>
+    <?php endif; ?>
 
     <dl>
         <dt>Auteur</dt>
         <dd>
-            <a href=""></a>
+            <a href="">
+                <?= $book['author']; ?>
+            </a>
         </dd>
 
         <dt>Genre</dt>
-        <dd></dd>
+        <dd>
+            <?= $book['genre']; ?>
+        </dd>
 
         <dt>Langue</dt>
-        <dd></dd>
+        <dd>
+            <?= $book['language']; ?>
+        </dd>
 
         <dt>ISBN</dt>
-        <dd></dd>
+        <dd>
+            <?= $book['isbn']; ?>
+        </dd>
 
         <!-- conditionnels -->
-
+        <?php if($book['date']): ?>
         <dt>Date de parution</dt>
-        <dd><time datetime=""></time></dd>
+        <dd><time datetime="<?= $book['date']; ?>"><?= $book['date']; ?></time></dd>
+        <?php endif; ?>
 
+        <?php if($book['npages']): ?>
         <dt>Nombre de pages</dt>
-        <dd></dd>
+        <dd><?= $book['npages']; ?></dd>
+        <?php endif; ?>
 
+        <?php if($book['summary']): ?>
         <dt>Synopsis</dt>
-        <dd><p></p></dd>
+        <dd><p><?= $book['summary']; ?></p></dd>
+        <?php endif; ?>
         <!-- / -->
+
     </dl>
-
-
+    <!-- à faire
+    <a href="">Retourner aux résultats de recherche</a>-->
 
 </div>

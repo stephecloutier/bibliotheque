@@ -21,15 +21,50 @@ class Book extends Model {
         }
     }
 
-    public function addBook($bookTitle, $bookCover, $bookSummary, $bookIsbn, $bookPages, $bookDate, $bookLanguage, $bookGenre, $bookAuthor)
+    public function getSingleBook($id)
     {
         $pdo = $this->connectDB();
         if($pdo) {
             $pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
 
-            $pdoSt = $pdo->prepare('INSERT INTO books(title, front_cover, summary, isbn, npages, datepub, language_id, genre_id) VALUES(:bookTitle, :bookCover, :bookSummary, :bookIsbn, :bookPages, :bookDate, :bookLanguage, :bookGenre)');
+            $pdoSt = $pdo->prepare('SELECT books.title AS title, 
+                                    books.id AS bookId, 
+                                    books.isbn AS isbn, 
+                                    books.datepub AS date, 
+                                    books.npages AS npages, 
+                                    books.summary AS summary, 
+                                    authors.name AS author, 
+                                    authors.id AS authorId, 
+                                    languages.name AS language, 
+                                    languages.id AS languageId, 
+                                    genres.name AS genre, 
+                                    genres.id AS genreId, 
+                                    ab.id AS authorBookId 
+                                    FROM books 
+                                    JOIN author_book ab ON books.id = ab.book_id 
+                                    JOIN authors ON ab.author_id = authors.id 
+                                    JOIN languages ON books.language_id = languages.id 
+                                    JOIN genres ON books.genre_id = genres.id 
+                                    WHERE books.id = :id');
+            $pdoSt->bindValue(':id', $id);
+            try {
+                $pdoSt->execute();
+                return $pdoSt->fetch();
+            } catch(\PDOException $e) {
+                die('Connection failed: ' . $e->getMessage());
+                $_SESSION['errors']['BDD'] = 'Il y a eu une erreur lors de la connexion à la base de données';
+            }
+        }
+    }
+
+    public function addBook($bookTitle, $bookSummary, $bookIsbn, $bookPages, $bookDate, $bookLanguage, $bookGenre, $bookAuthor)
+    {
+        $pdo = $this->connectDB();
+        if($pdo) {
+            $pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+
+            $pdoSt = $pdo->prepare('INSERT INTO books(title, summary, isbn, npages, datepub, language_id, genre_id) VALUES(:bookTitle, :bookSummary, :bookIsbn, :bookPages, :bookDate, :bookLanguage, :bookGenre)');
             $pdoSt->bindValue(':bookTitle', $bookTitle);
-            $pdoSt->bindValue(':bookCover', $bookCover);
             $pdoSt->bindValue(':bookSummary', $bookSummary);
             $pdoSt->bindValue(':bookIsbn', $bookIsbn);
             $pdoSt->bindValue(':bookPages', $bookPages);
@@ -45,7 +80,41 @@ class Book extends Model {
             $pdoSt = $pdo->prepare('INSERT INTO author_book(author_id, book_id) VALUES(:authorId, :bookId)');
             $pdoSt->bindValue(':bookId', $pdo->lastInsertId());
             $pdoSt->bindValue(':authorId', $bookAuthor);
-            var_dump($bookAuthor);
+            try {
+                $pdoSt->execute();
+            } catch(\PDOException $e) {
+                die('Connection failed: ' . $e->getMessage());
+                $_SESSION['errors']['BDD'] = 'Il y a eu une erreur lors de la connexion à la base de données';
+            }
+        }
+    }
+
+
+    public function updateBook($bookId, $bookTitle, $bookSummary, $bookIsbn, $bookPages, $bookDate, $bookLanguage, $bookGenre, $bookAuthor, $authorBookId)
+    {
+        $pdo = $this->connectDB();
+        if($pdo) {
+            $pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+
+            $pdoSt = $pdo->prepare('UPDATE books SET title = :bookTitle, summary = :bookSummary, isbn = :bookIsbn, npages = :bookPages, datepub = :bookDate, language_id = :bookLanguage, genre_id = :bookGenre WHERE id = :bookId');
+            $pdoSt->bindValue(':bookId', $bookId);
+            $pdoSt->bindValue(':bookTitle', $bookTitle);
+            $pdoSt->bindValue(':bookSummary', $bookSummary);
+            $pdoSt->bindValue(':bookIsbn', $bookIsbn);
+            $pdoSt->bindValue(':bookPages', $bookPages);
+            $pdoSt->bindValue(':bookDate', $bookDate);
+            $pdoSt->bindValue(':bookLanguage', $bookLanguage);
+            $pdoSt->bindValue(':bookGenre', $bookGenre);
+            try {
+                $pdoSt->execute();
+            } catch(\PDOException $e) {
+                die('Connection failed: ' . $e->getMessage());
+                $_SESSION['errors']['BDD'] = 'Il y a eu une erreur lors de la connexion à la base de données';
+            }
+            $pdoSt = $pdo->prepare('UPDATE author_book SET author_id = :authorId, book_id = :bookId WHERE author_book.id = :authorBookId');
+            $pdoSt->bindValue(':bookId', $bookId);
+            $pdoSt->bindValue(':authorId', $bookAuthor);
+            $pdoSt->bindValue(':authorBookId', $authorBookId);
             try {
                 $pdoSt->execute();
             } catch(\PDOException $e) {
@@ -147,7 +216,7 @@ class Book extends Model {
         $bindValues = [];
         $requestParts = ['books.title LIKE :title', 'authors.name LIKE :author', 'genres.id = :genre_id', 'languages.id = :language_id'];
         $possibleBindValues = [[':title' => "%$title%"], [':author' => "%$author%"], [':genre_id' => $genre], [':language_id' => $language]];
-        $request = 'SELECT books.title AS title, authors.name AS author FROM books JOIN author_book ON books.id = author_book.book_id JOIN authors ON authors.id = author_book.author_id JOIN genres ON genres.id = books.genre_id JOIN languages ON languages.id = books.language_id';
+        $request = 'SELECT books.title AS title, books.id AS bookId, authors.name AS author FROM books JOIN author_book ON books.id = author_book.book_id JOIN authors ON authors.id = author_book.author_id JOIN genres ON genres.id = books.genre_id JOIN languages ON languages.id = books.language_id';
         $hasArgs = false;
 
         foreach(func_get_args() as $argument) {
@@ -171,7 +240,7 @@ class Book extends Model {
             if($hasArgs) {
                 $request = substr($request, 0, -4);
             }
-            
+
             $pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
             $pdoSt = $pdo->prepare($request);
             var_dump($request, $bindValues);

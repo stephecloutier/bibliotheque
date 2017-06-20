@@ -7,7 +7,9 @@
         <li>
             <ul>
                 <li>
-                   <?= $book['title']; ?>
+                    <a href="index.php?bookId=<?= $book['bookId']; ?>&resource=Book&action=showBook">
+                        <?= $book['title']; ?>
+                    </a>
                 </li>
                 <li>
                     <?= $book['author']; ?>
