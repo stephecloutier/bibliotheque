@@ -10,8 +10,9 @@ class Auth {
             $user =  $login->connectUser($_POST['email'], $_POST['password']);
             if(isset($user['error'])) {
                 $_SESSION['errors']['userConnection'] = $user['error'];
+            } else {
+                $_SESSION['user'] = $user;
             }
-            $_SESSION['user'] = $user;
             $datas['view'] = ['parts/basicSearch.php', 'parts/news.php', 'parts/suggestions.php'];
         } else {
             $_SESSION['errors']['email'] = 'Vous n’avez pas entré une adresse email valide';
