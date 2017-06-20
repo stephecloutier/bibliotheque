@@ -89,7 +89,7 @@
         <button type="submit">Modifier le livre</button>
     </form>
 
-    <a href="index.php?bookId=<?= $book['bookId']; ?>&resource=Book&action=showBook">Retourner à la page du livre</a>
+    <a class="update__link" href="index.php?bookId=<?= $book['bookId']; ?>&resource=Book&action=showBook">Retourner à la page du livre</a>
 
 </div>
 <?php

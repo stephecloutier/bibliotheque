@@ -3,7 +3,7 @@
 
     <h2><?= $book['title']; ?></h2>
     <?php if(isset($_SESSION['user']) && intval($_SESSION['user']['status']) === 1): ?>
-        <a href="index.php?bookId=<?= $book['bookId']; ?>&resource=Page&action=bookUpdate">Modifier le livre</a>
+        <a class="modify__link" href="index.php?bookId=<?= $book['bookId']; ?>&resource=Page&action=bookUpdate">Modifier le livre</a>
     <?php endif; ?>
 
     <dl>
