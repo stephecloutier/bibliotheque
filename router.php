@@ -8,7 +8,6 @@
     $method = $_SERVER['REQUEST_METHOD'];
     $resource = $_REQUEST['resource'] ?? $default_parts[1];
     $action = $_REQUEST['action'] ?? $default_parts[2];
-    var_dump($method . '/' . $resource . '/' . $action);
     if(!in_array($method . '/' . $resource . '/' . $action, $routes)){
         die('Hey oh n’essaie pas de jouer avec les routes !'); // changer et faire une redirection
     }

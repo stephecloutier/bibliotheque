@@ -243,7 +243,6 @@ class Book extends Model {
 
             $pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
             $pdoSt = $pdo->prepare($request);
-            var_dump($request, $bindValues);
             try {
                 $pdoSt->execute($bindValues);
             } catch(\PDOException $e) {
