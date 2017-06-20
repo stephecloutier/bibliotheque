@@ -9,14 +9,15 @@ class Book extends Page {
     {
         $bookModel = new BookModel;
         $_SESSION['bookResults'] = $bookModel->getResults($_GET['bookTitle']);
-        return ['view' => ['parts/bookResults.php']];
+        return ['view' => ['parts/bookResults.php'], 'search' => [$_GET['bookTitle']]];
     }
 
     public function getAdvancedSearch()
     {
         $bookModel = new BookModel;
+        $search = [$_GET['bookTitle'], $_GET['bookAuthor'], $_GET['bookGenre'], $_GET['bookLanguage']];
         $_SESSION['bookResults'] = $bookModel->getResults($_GET['bookTitle'], $_GET['bookAuthor'], $_GET['bookGenre'], $_GET['bookLanguage']);
-        return ['view' => ['parts/bookResults.php']];
+        return ['view' => ['parts/bookResults.php'], 'search' => $search];
     }
 
     public function showBook()

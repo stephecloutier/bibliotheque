@@ -189,6 +189,10 @@ dd {
     max-width: 600px;
 }
 
-em {
+em, .searchTerm {
     font-style: italic;
+}
+
+.searchTerm:not(:last-child)::after {
+    content: ", ";
 }

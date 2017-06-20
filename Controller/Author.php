@@ -43,9 +43,6 @@ class Author {
         $authorBio = $model->checkField($_POST['authorBio']);
         $authorDeath = $model->checkField($_POST['authorDeath']);
 
-        // check cover
-        //todo
-
         // check death date
         if(!is_null($authorDeath)) {
             if(!$model->validateDate($authorDeath)) {
