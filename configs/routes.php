@@ -9,5 +9,6 @@
     'post_book' => 'POST/Book/addBook',
     'get_book' => 'GET/Book/search',
     'get_book_advanced' => 'GET/Book/advancedSearch',
+     'get_single_book' => 'GET/Book/showBook';
     'get_advancedSearch' => 'GET/Page/advancedSearch'
  ];

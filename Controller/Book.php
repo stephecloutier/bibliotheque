@@ -19,6 +19,11 @@ class Book extends Page {
         return ['view' => ['parts/bookResults.php']];
     }
 
+    public function showBook()
+    {
+
+    }
+
     public function addBook() {
         $bookModel = new BookModel;
         $model = new Model;
