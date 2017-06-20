@@ -27,5 +27,5 @@
         </span>
         <?php endif; ?>
     </ul>
-    <a href="index.php?resource=Page&action=advancedSearch" class="results__link">Retourner à la page de recherche</a>
 </div>
+<a href="index.php?resource=Page&action=advancedSearch" class="results__link">Retourner à la page de recherche</a>

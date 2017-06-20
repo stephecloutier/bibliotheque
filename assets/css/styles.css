@@ -178,6 +178,10 @@ h2 {
     margin-bottom: 1rem;
 }
 
+ul {
+    margin-top: 2rem;
+}
+
 dt {
     font-weight: 600;
 }
@@ -195,4 +199,33 @@ em, .searchTerm {
 
 .searchTerm:not(:last-child)::after {
     content: ", ";
+}
+
+.results__link, .search__link {
+    display: block;
+    margin-top: 2rem;
+    font-weight: 600;
+    text-decoration: underline;
+    transition: 0.3s ease-in-out;
+}
+.results__link:hover, .search__link:hover {
+    color: salmon;
+}
+
+.results__wrapper {
+    padding: 2rem;
+    max-width: 700px;
+    border: 3px solid black;
+    border-radius: 3px;
+}
+
+.results__wrapper li a {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.5em;
+    transition: 0.3s ease-in-out;
+}
+
+.results__wrapper li a:hover {
+    color: salmon;
 }

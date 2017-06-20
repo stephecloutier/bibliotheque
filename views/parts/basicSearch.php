@@ -9,4 +9,4 @@
 
     <button type="submit">Rechercher</button>
 </form>
-<a href="index.php?resource=Page&action=advancedSearch" title="Aller sur la page de recherche avancée">Recherche avancée</a>
+<a class="search__link" href="index.php?resource=Page&action=advancedSearch" title="Aller sur la page de recherche avancée">Recherche avancée</a>
