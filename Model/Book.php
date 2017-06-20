@@ -147,7 +147,18 @@ class Book extends Model {
         $bindValues = [];
         $requestParts = ['books.title LIKE :title', 'authors.name LIKE :author', 'genres.id = :genre_id', 'languages.id = :language_id'];
         $possibleBindValues = [[':title' => "%$title%"], [':author' => "%$author%"], [':genre_id' => $genre], [':language_id' => $language]];
-        $request = 'SELECT books.title AS title, authors.name AS author FROM books JOIN author_book ON books.id = author_book.book_id JOIN authors ON authors.id = author_book.author_id JOIN genres ON genres.id = books.genre_id JOIN languages ON languages.id = books.language_id WHERE';
+        $request = 'SELECT books.title AS title, authors.name AS author FROM books JOIN author_book ON books.id = author_book.book_id JOIN authors ON authors.id = author_book.author_id JOIN genres ON genres.id = books.genre_id JOIN languages ON languages.id = books.language_id';
+        $hasArgs = false;
+
+        foreach(func_get_args() as $argument) {
+            if($argument) {
+                $hasArgs = true;
+            }
+        }
+
+        if($hasArgs) {
+            $request .= ' WHERE';
+        }
 
         $pdo = $this->connectDB();
         if($pdo) {
@@ -157,8 +168,10 @@ class Book extends Model {
                     $bindValues[array_keys($possibleBindValues[$index])[0]] = $possibleBindValues[$index][array_keys($possibleBindValues[$index])[0]];
                 }
             }
-            $request = substr($request, 0, -4);
-
+            if($hasArgs) {
+                $request = substr($request, 0, -4);
+            }
+            
             $pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
             $pdoSt = $pdo->prepare($request);
             var_dump($request, $bindValues);

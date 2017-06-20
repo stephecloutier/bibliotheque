@@ -146,16 +146,7 @@ form h3 {
     font-weight: 600;
 }
 
-.search {
-    /*width: 500px;*/
-    min-height: 150px;
-    justify-content: space-between;
-
-    border-radius: 2px;
-    margin-bottom: 1rem;
-}
-
-.search button {
+form button {
     align-self: flex-end;
     margin-top: 2rem;
 }
@@ -166,8 +157,23 @@ label {
     margin-top: 2rem;
 }
 
-input, select {
+input, select, textarea {
     border: 2px solid black;
     padding: 1em;
     border-radius: 3px;
+}
+
+.admin {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.admin__form {
+    width: 48%;
+}
+
+h2 {
+    margin-bottom: 1rem;
 }
